@@ -7,6 +7,32 @@
 // @lc code=start
 public class Solution {
     public int Trap(int[] height) {
+        
+        int vol = 0;
+        int l = 0,r = height.Length-1;
+        int maxL = 0, maxR = 0;
+
+        while (l <= r) 
+        {
+            if (maxL < maxR) 
+            {
+                vol += Math.Max(maxL - height[l], 0);
+                maxL = Math.Max(maxL, height[l]);
+                l++;
+            }
+            else 
+            {
+                vol += Math.Max(maxR - height[r], 0);
+                maxR = Math.Max(maxR, height[r]);
+                r--;
+            }
+        }
+        return vol;
+
+
+
+        /*
+        // Solution#2
         int len = height.Length;
         if (len<=2) return 0;
 
@@ -48,7 +74,7 @@ public class Solution {
         }
 
         return vol;
-
+        */
         /*
         // solution1 - time out
         int vol = 0;
