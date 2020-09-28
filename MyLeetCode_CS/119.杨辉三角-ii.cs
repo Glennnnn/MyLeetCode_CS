@@ -7,6 +7,8 @@
 // @lc code=start
 public class Solution {
 
+    // Solution#2
+    // 对于杨辉三角的同一行，第 ( i + 1) 项是第 i 项的 ( k - i ) /( i + 1 ) 倍
     public IList<int> GetRow(int rowIndex) {
         List<int> ans = new List<int>();
 
