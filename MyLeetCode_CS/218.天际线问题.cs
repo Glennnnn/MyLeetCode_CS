@@ -37,26 +37,14 @@ public class Solution {
         {
             long x1 = (i<skyline1.Count)? skyline1[i][0]: long.MaxValue;
             long x2 = (j<skyline2.Count)? skyline2[j][0]: long.MaxValue;
-            long x = 0;
+            if (x1 <= x2) h1 = skyline1[i++][1];
+            if (x1 >= x2) h2 = skyline2[j++][1];
 
-            if (x1 <= x2)
-            {
-                h1 = skyline1[i][1];
-                x = x1;
-                i++;
-            }
-            if (x1 >= x2)
-            {
-                h2 = skyline2[j][1];
-                x = x2;
-                j++;
-            }
-
+            int xCoord = (int)Math.Min(x1, x2);
             int height = Math.Max(h1, h2);
             if (list.Count==0 || height != list[list.Count-1][1])
             {
-                List<int> tmp = new List<int>(){(int)x, height};
-                list.Add(tmp);
+                list.Add(new List<int>(){xCoord, height});
             }
         }
         return list;
