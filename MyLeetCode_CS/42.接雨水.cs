@@ -8,6 +8,8 @@
 public class Solution {
     public int Trap(int[] height) {
         
+        // Solution#1 - Two pointers
+        // O(n), O(1)
         int vol = 0;
         int l = 0,r = height.Length-1;
         int maxL = 0, maxR = 0;
@@ -28,6 +30,30 @@ public class Solution {
             }
         }
         return vol;
+
+
+        /*
+        // Soltuion#2 - Stack
+        // Time: O(2n), Space: O(n)
+        int vol = 0;
+        Stack<int> stack = new Stack<int>();
+        for(int i=0;i<height.Length;i++)
+        {
+            while (stack.Count>0 && height[i] > height[stack.Peek()])
+            {
+                int m = stack.Pop();
+                if (stack.Count == 0) break;
+                int l = stack.Peek();
+                int r = i;
+
+                int w = r-l-1;
+                int h = Math.Min(height[r], height[l]) - height[m];
+                vol += w * h;
+            }
+            stack.Push(i);
+        }
+        return vol;
+        */
 
 
 
