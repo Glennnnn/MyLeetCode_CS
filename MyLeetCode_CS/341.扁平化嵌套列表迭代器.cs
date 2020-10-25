@@ -23,43 +23,28 @@
  * }
  */
 public class NestedIterator {
-    Stack<NestedInteger> stack;
 
+    Queue<int> q;
     public NestedIterator(IList<NestedInteger> nestedList) {
-
-        stack = new Stack<NestedInteger>();
-        pushToStack(nestedList);
+        q = new Queue<int>();
+        recursiveFlatten(nestedList);
     }
-    
-    private void pushToStack(IList<NestedInteger> nestedList)
-    {
-        for (int i=nestedList.Count-1;i>=0;i--)
-            stack.Push(nestedList[i]);
-    }
-
     public bool HasNext() {
-        if (stack.Count ==0)
-            return false;
-        if (stack.Peek().IsInteger())
-            return true;
-        else
-        {
-            pushToStack(stack.Pop().GetList());
-            return HasNext();
-        }
+        return q.Count>0;
     }
 
     public int Next() {
-        var nextObj = stack.Pop();
+        return q.Dequeue();
+    }
 
-        if (nextObj.IsInteger())
+    private void recursiveFlatten (IList<NestedInteger> lni)
+    {
+        foreach(NestedInteger ni in lni)
         {
-            return nextObj.GetInteger();
-        }
-        else
-        {
-            pushToStack(nextObj.GetList());
-            return Next();
+            if (ni.IsInteger()) // is an int
+                q.Enqueue(ni.GetInteger());
+            else                // is a list
+                recursiveFlatten(ni.GetList());
         }
     }
 }
