@@ -81,7 +81,6 @@ public class AllOne {
     public void Inc(string key) {
 
         DLLNode currNode = myDict.ContainsKey(key)? myDict[key]: head;
-        // determine next node - that's where we insert to
         DLLNode nextNode = currNode.getNextNode();
         // put the key into next node
         nextNode.insertKey(key);
@@ -105,16 +104,16 @@ public class AllOne {
         {
             DLLNode currNode = myDict[key];
             DLLNode prevNode = currNode.getPrevNode();
-            if (prevNode == head)
+
+            myDict.Remove(key); // remove from dictionary for now
+            if (prevNode != head)   // insertable
             {
-                // nowhere to insert, delete
-                myDict.Remove(key);
-            }
-            else
-            {
+                // put the key into prev node
                 prevNode.insertKey(key);
-                myDict[key] = prevNode;
+                // update dictionary
+                myDict.Add(key, prevNode);
             }
+            // remove the key from current node
             currNode.removeKey(key);
         }
 
